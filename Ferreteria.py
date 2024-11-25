@@ -3,7 +3,7 @@ from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QHBoxLayout, QLa
 from PyQt5.QtGui import QFont, QTextDocument
 from PyQt5.QtPrintSupport import QPrinter, QPrintDialog
 from PyQt5.QtCore import QDateTime
-import mysql.connector
+import mysql.connector 
 
 class FerreteriaApp(QWidget):
     def __init__(self):
