@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <title>Carrito</title>
+    <style>
+        .producto-imagen {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-right: 10px;
+        }
+        .producto-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 1rem 0;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+        .detalle-producto {
+            flex: 1;
+            margin-left: 1rem;
+        }
+        .total {
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-top: 20px;
+        }
+        .button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="{{ url_for('productos') }}" class="button">Regresar a Productos</a>
+        <h2>Productos en el Carrito</h2>
+        {% for item in carrito %}
+        <div class="producto-card">
+            <img src="{{ item['imagen'] }}" alt="{{ item['nombre'] }}" class="producto-imagen">
+            <div class="detalle-producto">
+                <h3>{{ item['nombre'] }}</h3>
+                <p class="descripcion">{{ item['descripcion'] }}</p>
+                <p class="precio">Precio: ${{ item['precio'] }}</p>
+            </div>
+            <a href="{{ url_for('eliminar_carrito', id_producto=item['id_producto']) }}" class="button">Eliminar</a>
+        </div>
+        {% endfor %}
+        <p class="total">Total a pagar: ${{ total }}</p>
+
+        <h2>Datos de Pago</h2>
+        <form action="{{ url_for('comprar') }}" method="POST">
+
+            <label for="nombre">Nombre del Titular:</label>
+            <input type="text" name="nombre" required>
+            
+            <label for="tarjeta">Número de Tarjeta:</label>
+            <input type="text" name="tarjeta" required maxlength="16" pattern="\d{16}">
+            
+            <label for="expiracion">Fecha de Expiración:</label>
+            <input type="text" name="expiracion" required placeholder="MM/AA" pattern="\d{2}/\d{2}">
+            
+            <label for="cvv">Código CVV:</label>
+            <input type="text" name="cvv" required maxlength="3" pattern="\d{3}">
+            
+            <button type="submit" class="button">Pagar</button>
+        </form>
+    </div>
+</body>
+</html>

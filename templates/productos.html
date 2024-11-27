@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <title>Productos</title>
+</head>
+<body>
+    <div class="navbar">
+        <h1>Productos Disponibles</h1>
+    </div>
+    <div class="container">
+        <div class="productos-grid">
+            {% for producto in productos %}
+            <div class="producto-card">
+                <img src="{{ producto[3] }}" alt="{{ producto[1] }}" class="producto-imagen">
+                <h3>{{ producto[1] }}</h3>
+                <p class="descripcion">{{ producto[4] }}</p>
+                <p class="precio">Precio: ${{ producto[2] }}</p>
+                <a href="{{ url_for('agregar_carrito', id_producto=producto[0]) }}" class="button">Agregar al Carrito</a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
